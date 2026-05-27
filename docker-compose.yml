@@ -1,0 +1,35 @@
+services:
+  node_server:
+    image: node:24
+    user: "node"
+    working_dir: /home/node/app
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - ./server:/home/node/app
+    ports:
+      - "3000:3000"
+    command: ["npm", "start", "prod"]
+  node_client:
+    image: node:24
+    user: "node"
+    working_dir: /home/node/app
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - ./client:/home/node/app
+    ports:
+      - "5173:5173"
+    command: ["npm", "run", "build"]
+    depends_on:
+      - node_server
+  apache:
+    build: .
+    container_name: my-apache-app
+    ports:
+      - '8080:80'
+    volumes:
+      - ./client/dist:/usr/local/apache2/htdocs
+    depends_on:
+      - node_server
+      - node_client
