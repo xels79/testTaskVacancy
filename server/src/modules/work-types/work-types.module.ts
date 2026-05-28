@@ -3,9 +3,10 @@ import { WorkTypesController } from '../../controllers/work-types/work-types.con
 import { WorkTypesService } from '../../services/work-types/work-types.service';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { WorkTypes } from '../../models/WorkTypes';
+import Works from '../../models/Works';
 
 @Module({
-    imports: [SequelizeModule.forFeature([WorkTypes])],
+    imports: [SequelizeModule.forFeature([WorkTypes, Works])],
     controllers:[WorkTypesController],
     providers:[WorkTypesService],
 })

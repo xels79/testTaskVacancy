@@ -4,6 +4,7 @@ import Works from '../../models/Works';
 import IWorks from '../../interfacec/IWorks';
 import { CreateWorksDTO } from '../../dto/works-dto/create-works-dto';
 import IServerMessage from '../../interfacec/IServerMessage';
+import { WorkTypes } from '../../models/WorkTypes';
 @Injectable()
 export class WorksService {
   constructor(
@@ -11,7 +12,9 @@ export class WorksService {
     private worksModel: typeof Works,
   ) { }
   async findAll(): Promise<Works[]> {
-    return this.worksModel.findAll();
+    return this.worksModel.findAll({
+      include:['workType']
+    });
   }
   async create(data: CreateWorksDTO):Promise<IWorks>{
     return new Promise<IWorks>(async (resolve, reject)=>{

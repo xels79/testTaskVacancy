@@ -1,8 +1,9 @@
-import { Table, Column, Model, DataType, AllowNull } from 'sequelize-typescript';
+import { Table, Column, Model, DataType, AllowNull, HasOne } from 'sequelize-typescript';
 import IWorkTypes from '../interfacec/IWorkTypes';
-import { Optional } from 'sequelize';
+import * as sequelize from 'sequelize';
+import Works from './Works';
 
-export interface ICreateWorkTypes extends Optional<IWorkTypes, 'id'> {}
+export interface ICreateWorkTypes extends sequelize.Optional<IWorkTypes, 'id'> {}
 
 @Table
 export class WorkTypes extends Model<IWorkTypes, ICreateWorkTypes> {
@@ -11,19 +12,19 @@ export class WorkTypes extends Model<IWorkTypes, ICreateWorkTypes> {
         allowNull:false,
         unique: true
     })
-       declare workName: string;
+    declare workName: string;
 
     @Column({
         type:DataType.STRING,
         allowNull:true
     })
-       declare description: string; 
+    declare description: string; 
+
     @Column({
         type: DataType.INTEGER,
         primaryKey: true,
         autoIncrement: true,
     })
-        declare id: number;
+    declare id: number;
 
-  // Add other fields and relationships
 }

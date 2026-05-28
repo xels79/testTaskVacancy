@@ -1,8 +1,9 @@
-import { AllowNull, Column, DataType, Model, Table } from "sequelize-typescript";
+import { AllowNull, Column, DataType, ForeignKey, HasOne, Model, Table } from "sequelize-typescript";
 import IWorks from "../interfacec/IWorks";
-import { Optional } from "sequelize";
+import * as sequelize from "sequelize";
+import { WorkTypes } from "./WorkTypes";
 
-export interface ICreateWorks extends Optional<IWorks, 'id'> {}
+export interface ICreateWorks extends sequelize.Optional<IWorks, 'id'> {}
 
 @Table
 export default class Works extends Model<IWorks, ICreateWorks>{
@@ -17,6 +18,7 @@ export default class Works extends Model<IWorks, ICreateWorks>{
         type: DataType.INTEGER,
         allowNull:false
     })
+    @ForeignKey(() => WorkTypes)
     declare workTypesID: number;
 
     @Column({
@@ -30,4 +32,7 @@ export default class Works extends Model<IWorks, ICreateWorks>{
         allowNull: true
     })
     declare description?: string;
+    @HasOne(() => WorkTypes, {foreignKey:'id', sourceKey:'workTypesID'})
+    declare workType?: sequelize.NonAttribute<WorkTypes>;
+    
 }

@@ -5,6 +5,7 @@ import { SequelizeModule } from '@nestjs/sequelize';
 import { WorkTypes } from './models/WorkTypes';
 import { WorkTypesModule } from './modules/work-types/work-types.module';
 import { WorksModule } from './modules/works/works.module';
+import Works from './models/Works';
 @Module({
   imports: [
     SequelizeModule.forRoot({
@@ -12,7 +13,7 @@ import { WorksModule } from './modules/works/works.module';
       storage: './data/database.sqlite',
       autoLoadModels: true,
       synchronize: true,
-      models: [WorkTypes]
+      models: [WorkTypes, Works]
     }),
     WorkTypesModule,
     WorksModule
