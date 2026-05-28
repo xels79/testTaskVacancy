@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { WorkTypes } from './models/WorkTypes';
 import { WorkTypesModule } from './modules/work-types/work-types.module';
+import { WorksModule } from './modules/works/works.module';
 @Module({
   imports: [
     SequelizeModule.forRoot({
@@ -13,7 +14,8 @@ import { WorkTypesModule } from './modules/work-types/work-types.module';
       synchronize: true,
       models: [WorkTypes]
     }),
-    WorkTypesModule
+    WorkTypesModule,
+    WorksModule
   ],
   controllers: [AppController],
   providers: [AppService],

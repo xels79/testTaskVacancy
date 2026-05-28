@@ -9,8 +9,10 @@ function App() {
   const [firstStart, setFrstStar] = useState(true);
   const [content, setContent] = useState('Загрузка');
   useEffect(()=>{
+    const url = window.location.origin + '/rest';
     if (firstStart){
-      fetch("/rest")
+      console.log(window.location, url);
+      fetch(url)
         .then(response=>response.text())
         .then((text)=>{
           console.log(text);

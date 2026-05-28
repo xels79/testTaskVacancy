@@ -4,6 +4,7 @@ import babel from '@rolldown/plugin-babel'
 
 // https://vite.dev/config/
 export default defineConfig({ 
+  // base:'http://localhost:8080',
   server: {
     proxy: {
       "/rest": {

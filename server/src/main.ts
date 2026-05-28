@@ -5,9 +5,9 @@ import { ValidationPipe } from '@nestjs/common';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const corsPort = process.env.npm_lifecycle_event==="start"?"8080":"5173";
-  console.log(process.env.npm_lifecycle_event);
+  console.log(process.env.npm_lifecycle_event, corsPort);
   app.enableCors({
-    origin: [`http://localhost:${corsPort}`,`http://127.0.0.1:${corsPort}`],
+    origin: [`http://localhost:${corsPort}`,`http://127.0.0.1:${corsPort}`,`0.0.0.0:${corsPort}`],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     allowedHeaders: '*',
     credentials: true,
