@@ -6,6 +6,7 @@ import { CreateWorkTypesDto } from '../../dto/work-types-dto/create-work-types-d
 import { ValidationError, where } from 'sequelize';
 import { Logger } from '@nestjs/common';
 import IServerMessage from '../../interfacec/IServerMessage';
+import Works from '../../models/Works';
 
 @Injectable()
 export class WorkTypesService {
@@ -13,6 +14,8 @@ export class WorkTypesService {
   constructor(
     @InjectModel(WorkTypes)
     private workTypesModel: typeof WorkTypes,
+    @InjectModel(Works)
+    private worksModel: typeof Works,
   ) {  }
 
   async findAll(): Promise<IWorkTypes[]> {
@@ -38,11 +41,16 @@ export class WorkTypesService {
   }
 
   async deleteOne(id:number):Promise<IServerMessage>{
-    return new Promise<IServerMessage>(async (resolve)=>{      
-      const count = await this.workTypesModel.destroy({where:{id:id}});
-      resolve({
-        message:`Удалено ${count} запись(и).`
-      });
+    return new Promise<IServerMessage>(async (resolve, rejecrt)=>{      
+      const dependence = await this.worksModel.count({where:{workTypesID:id}});
+      if (!dependence){
+        const count = await this.workTypesModel.destroy({where:{id:id}});
+        resolve({
+          message:`Удалено ${count} запись(и).`
+        });
+      }else{
+        rejecrt(new HttpException(`Невозможно удалить. Найдено ${dependence} запись(и)(ей)`, HttpStatus.FORBIDDEN));
+      }
     })
   }
 
@@ -70,8 +78,18 @@ export class WorkTypesService {
           message:`Обновлено ${count} запись(и).`
         });
       }else{
-        reject(new HttpException('Запись не найдена.', HttpStatus.BAD_REQUEST));
+        reject(new HttpException('Запись не найдена.', HttpStatus.NOT_FOUND));
       }
     });
+  }
+  async findOne(id:number):Promise<IWorkTypes>{
+    return new Promise<IWorkTypes>(async (resolve, reject)=>{
+      const model = await this.workTypesModel.findOne({where:{id:id}});
+      if (model){
+        resolve(model.toJSON());
+      }else{
+        reject (new HttpException("Запись не найдена", HttpStatus.NOT_FOUND));
+      }
+    })
   }
 }

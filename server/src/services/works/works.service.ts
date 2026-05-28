@@ -60,4 +60,14 @@ export class WorksService {
       }
     });
   }
+  async findOne(id:number):Promise<IWorks>{
+    return new Promise<IWorks>(async (resolve, reject)=>{
+      const model = await this.worksModel.findOne({where:{id:id}});
+      if (model){
+        resolve(model.toJSON());
+      }else{
+        reject (new HttpException("Запись не найдена", HttpStatus.NOT_FOUND));
+      }
+    })
+  }
 }

@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
 import { WorkTypesService } from '../../services/work-types/work-types.service';
 import IWorkTypes from '../../interfacec/IWorkTypes';
 import { CreateWorkTypesDto } from '../../dto/work-types-dto/create-work-types-dto';
@@ -6,9 +6,12 @@ import { CreateWorkTypesDto } from '../../dto/work-types-dto/create-work-types-d
 @Controller('work-types')
 export class WorkTypesController {
   constructor(private readonly workTypesService: WorkTypesService) {}
-
+  @Get(':id')
+  findOne(@Param('id') id:number){
+    return this.workTypesService.findOne(id);
+  }
   @Get()
-  findAll(): Promise<IWorkTypes[]> {
+  findAll(@Query('page') page?:number = 1, @Query('page-size') pageSize?: number = 10): Promise<IWorkTypes[]> {
     return this.workTypesService.findAll();
   }
   @Post()

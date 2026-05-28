@@ -32,7 +32,7 @@ export default class Works extends Model<IWorks, ICreateWorks>{
         allowNull: true
     })
     declare description?: string;
-    @HasOne(() => WorkTypes, {foreignKey:'id', sourceKey:'workTypesID'})
+    @HasOne(() => WorkTypes, {foreignKey:'id', sourceKey:'workTypesID', onDelete:'RESTRICT'})
     declare workType?: sequelize.NonAttribute<WorkTypes>;
     
 }
