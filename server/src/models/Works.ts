@@ -2,6 +2,7 @@ import {
   Column,
   DataType,
   ForeignKey,
+  HasMany,
   HasOne,
   Model,
   Table,
@@ -40,10 +41,34 @@ export default class Works extends Model<IWorks, ICreateWorks> {
     allowNull: true,
   })
   declare description?: string;
-  @HasOne(() => WorkTypes, {
-    foreignKey: 'id',
-    sourceKey: 'workTypesID',
-    onDelete: 'RESTRICT',
+  @HasMany(() => WorkTypes, {
+    foreignKey: 'workTypesID',
+    sourceKey: 'id',
+    // onDelete: 'RESTRICT',
   })
   declare workType?: sequelize.NonAttribute<WorkTypes>;
+
+    @Column({
+        type: DataType.INTEGER,
+        allowNull: false
+    })
+    declare dateOfCompletion;
+
+    @Column({
+        type: DataType.INTEGER,
+        allowNull: false
+    })
+    declare volume;
+
+    @Column({
+        type: DataType.STRING,
+        allowNull: false
+    })
+    declare uoMeasurement;
+
+    @Column({
+        type: DataType.STRING,
+        allowNull: false
+    })
+    declare fio;
 }

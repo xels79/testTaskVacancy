@@ -29,6 +29,7 @@ export class WorkTypesController {
   }
   @Post()
   async create(@Body() workTypeDTO: CreateWorkTypesDto) {
+    console.log(workTypeDTO);
     return this.workTypesService.create(workTypeDTO);
   }
   @Put(':id')

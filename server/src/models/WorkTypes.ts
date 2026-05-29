@@ -26,5 +26,6 @@ export class WorkTypes extends Model<IWorkTypes, ICreateWorkTypes> {
         autoIncrement: true,
     })
     declare id: number;
+    
 
 }
