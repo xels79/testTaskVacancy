@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Tab, Tabs } from "react-bootstrap";
 import WorkTypesPanel from "../WorkTypesPanel/WorkTypesPanel";
+import WorkPanel from "../WorkPanel/WorkPanel";
 function TodoApp(){
     const [key, setKey] = useState('workTypes');
     return (    <Tabs
@@ -15,7 +16,7 @@ function TodoApp(){
         {key==='workTypes' && <WorkTypesPanel />}
       </Tab>
       <Tab eventKey="ToDoList" title="Список работ">
-        Tab content for Profile
+        {key==='ToDoList' && <WorkPanel />}
       </Tab>
     </Tabs>
     );

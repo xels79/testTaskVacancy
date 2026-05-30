@@ -36,10 +36,11 @@ export class WorksService {
       }
     }
     console.log(filters);
-    return this.worksModel.findAll(filters);
+    return this.worksModel.findAll({ include: ['workType'] });
   }
   async create(data: CreateWorksDTO): Promise<IWorks> {
     return new Promise<IWorks>(async (resolve, reject) => {
+      data.fio = data.fio.toLowerCase();
       try {
         const model = await this.worksModel.create(data);
         resolve(model.toJSON());

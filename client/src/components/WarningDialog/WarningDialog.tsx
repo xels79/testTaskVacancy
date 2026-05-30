@@ -10,15 +10,15 @@ interface IWarningDialog{
 function WarningDialog({message, title, doActionCancel, doActionConfirm}:IWarningDialog){
     return <Modal show onHide={doActionCancel}>
         <Modal.Header closeButton>
-          <Modal.Title>{title}</Modal.Title>
+          <Modal.Title className="text-danger">{title}</Modal.Title>
         </Modal.Header>
         <Modal.Body>{message}</Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={doActionCancel}>
-            Close
+            Отменить
           </Button>
-          <Button variant="primary" onClick={doActionConfirm}>
-            Save Changes
+          <Button variant="danger" onClick={doActionConfirm}>
+            Продолжить
           </Button>
         </Modal.Footer>
       </Modal>

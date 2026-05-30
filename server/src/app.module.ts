@@ -13,7 +13,7 @@ import Works from './models/Works';
       storage: './data/database.sqlite',
       autoLoadModels: true,
       synchronize: true,
-      models: [WorkTypes, Works]
+      models: [WorkTypes, Works],
     }),
     WorkTypesModule,
     WorksModule

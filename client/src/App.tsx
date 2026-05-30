@@ -6,7 +6,7 @@ export default function App() {
     <Container fluid="md">
       <Row className="justify-content-md-center align-items-center">
         <Col md="auto">
-          <Card style={{ width: '36rem' }} className="shadow p-3 mb-5 bg-body-tertiary rounded">
+          <Card style={{ width: '68rem', minHeight:'800px' }} className="shadow p-3 mb-5 bg-body-tertiary rounded">
             <Card.Body>
               <TodoApp />
             </Card.Body>

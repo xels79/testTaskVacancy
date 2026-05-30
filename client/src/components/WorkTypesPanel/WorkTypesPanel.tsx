@@ -1,5 +1,5 @@
 import { Button, Card, Col, Row } from "react-bootstrap"
-import WorkTypesAdd from "./WorkTypesAdd"
+import WorkTypesForm from "./WorkTypesForm"
 import { useEffect, useState } from "react";
 import WorkTapesTable from "./WorkTapesTable";
 import correctUrl from "../../helplers/correctUrl";
@@ -13,8 +13,14 @@ function WorkTypesPanel(){
     const [items, setItems] = useState<IWorkTypes[]>([]);
     const [selectedIndex, setSelectedIndex] = useState(0);
     const [showWarning, setShowWarning] = useState(false);
-    const handleShow = ()=>{setShowAdd(true); setUpdateFlag(!updateFlag)}
-    const handleClose = ()=>setShowAdd(false);
+    const handleShow = ()=>{setShowAdd(true); setUpdateFlag(!updateFlag);}
+    const handleClose = ()=>{
+        setShowAdd(false);
+        if (selectedIndex){
+            setSelectedIndex(0);
+        }
+        setUpdateFlag(!updateFlag);
+    }
     const proceedDeleting = ()=>{
         setShowWarning(false);
         setPending(true);
@@ -33,7 +39,8 @@ function WorkTypesPanel(){
         setShowWarning(true);
     }
     const updateAction = (index: number)=>{
-
+        setSelectedIndex(index);
+        setShowAdd(true);
     }
     useEffect(()=>{
         const url = correctUrl('/rest/work-types');
@@ -70,7 +77,7 @@ function WorkTypesPanel(){
                         />
                     </Col>
                 </Row>
-                {showAdd && <WorkTypesAdd doClose={handleClose}/>}
+                {showAdd && <WorkTypesForm doClose={handleClose} index={selectedIndex}/>}
             </Card.Body>
         </Card>
         {showWarning && <WarningDialog 
