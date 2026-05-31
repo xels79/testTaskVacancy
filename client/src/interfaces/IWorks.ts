@@ -1,3 +1,5 @@
+import IWorkTypes from "./IWorkTypes";
+
 export default interface IWorks {
   id?: number;
   workTypesID: number;
@@ -5,5 +7,6 @@ export default interface IWorks {
   fio: string;
   dateOfCompletion:number|string,
   volume:number,
-  uoMeasurement:'п.м.'|'кв.м.'|'куб.м.'|'шт.'|'час.'|'литры'
+  uoMeasurement:'п.м.'|'кв.м.'|'куб.м.'|'шт.'|'час.'|'литры',
+  workType?: IWorkTypes
 }

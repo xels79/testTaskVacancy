@@ -21,23 +21,30 @@ body{
   }
 }
 .table{
+  table-layout: fixed;
+  width: 100%;
   .td__card{
-    padding: 0;
+    // padding: 0;
+  
   }
-  // .card{
-  //   .card-body, .card-title{
-  //     background-color: transparent;
-  //   }
-  // }
-  tbody, thead{
-    >tr{
-      >td, >th{
-        &:first-child{
-          width: 80px;
-        }
+  .first__td-32 > tr{
+    >td, >th{
+      &:first-child{
+        width: 32px;
+        max-width: 32px;
       }
     }
   }
+  .first__td-80{
+      >tr{
+        >td, >th{
+          &:first-child{
+            width: 80px;
+            max-width: 80px;
+          }
+        }
+      }
+    }
 }
 .scrollable{
   max-height: 500px;

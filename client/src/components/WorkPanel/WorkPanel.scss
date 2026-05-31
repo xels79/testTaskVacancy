@@ -1,0 +1,22 @@
+.work__list{
+    >thead>tr>th, >tbody>tr>td{
+        &:nth-child(2){
+            width: 90px!important;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+        &:nth-child(3){
+            width: 190px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+        &:nth-child(4){
+            width: 64px!important;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+    }
+}

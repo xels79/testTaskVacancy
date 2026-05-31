@@ -17,6 +17,9 @@ export class WorkTypesService {
     @InjectModel(Works)
     private worksModel: typeof Works,
   ) {}
+  async total(): Promise<number> {
+    return this.workTypesModel.count();
+  }
 
   async findAll(
     page: number = 1,

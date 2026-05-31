@@ -15,6 +15,12 @@ import { CreateWorkTypesDto } from '../../dto/work-types-dto/create-work-types-d
 @Controller('work-types')
 export class WorkTypesController {
   constructor(private readonly workTypesService: WorkTypesService) {}
+
+  @Get('/total')
+  getTotal(){
+    return this.workTypesService.total();
+  }
+
   @Get(':id')
   findOne(@Param('id') id: number) {
     return this.workTypesService.findOne(id);

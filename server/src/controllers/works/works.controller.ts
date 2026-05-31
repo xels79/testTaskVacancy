@@ -6,7 +6,10 @@ import { CreateWorksDTO } from '../../dto/works-dto/create-works-dto';
 @Controller('works')
 export class WorksController {
   constructor(private readonly worksService: WorksService) {}
-
+  @Get('/total')
+  getTotal(){
+    return this.worksService.total();
+  }
   @Get()
   findAll(
     @Query('page') page?: number,

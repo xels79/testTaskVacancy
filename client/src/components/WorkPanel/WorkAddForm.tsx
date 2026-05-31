@@ -10,10 +10,17 @@ import {
     JournalBookmark,
     Briefcase
 } from 'react-bootstrap-icons';
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import IWorkTypes from "../../interfaces/IWorkTypes";
 import ISelecOptions from "../../interfaces/ISelecOptions";
 import correctUrl from "../../helplers/correctUrl";
+import WorkPanelContext from "./WorkPanelContext";
+import PagerContext from "../../contexts/PagerContext";
+
+interface IWorkAddForm{
+    pageCount: number
+}
+
 const initialValue:IWorks = {
         state: 0,
         workTypesID: 0,
@@ -22,7 +29,8 @@ const initialValue:IWorks = {
         volume: 1,
         uoMeasurement: "п.м."
 }
-function WorkAddForm(){
+function WorkAddForm( { pageCount }: IWorkAddForm ){
+    const { setPage } = useContext( PagerContext );
     const [pending, setPending] = useState(false);
     const [ worksList, setWorkList ] = useState<ISelecOptions[]|null>(null);
     const formMethods = useForm<IWorks>({ values: initialValue });
@@ -46,8 +54,10 @@ function WorkAddForm(){
             console.log(data);
             setValues(initialValue, {shouldDirty:true});
         })
-        .finally(()=>setPending(false))
-        console.log(toSend);
+        .finally(()=>{
+            setPending(false);
+            setPage( pageCount + 1 );
+        })
 
     }
     useEffect(()=>{
@@ -76,7 +86,7 @@ function WorkAddForm(){
                                         }) }
                                         isInvalid={!!errors.workTypesID}
                                 >
-                                    <option value={0} selected>Выберите работу</option>
+                                    <option value={0}>Выберите работу</option>
                                     {worksList.map((item, index)=><option
                                         key={`wSel_${index}`}
                                         value={item.value}
@@ -182,7 +192,7 @@ function WorkAddForm(){
                         </InputGroup>
                     </Col>
                     <Col className="col-3 text-end">
-                        <Button disabled={ !isValid } variant="success" size="sm" title="Добавить" type="submit"><PlusCircleFill /></Button>
+                        <Button variant="success" size="sm" title="Добавить" type="submit"><PlusCircleFill /></Button>
                     </Col>
             </fieldset>
             </Form>

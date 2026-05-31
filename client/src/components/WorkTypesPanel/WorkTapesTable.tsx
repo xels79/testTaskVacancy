@@ -16,7 +16,7 @@ function WorkTapesTable({
     deleteClick = (i)=>console.log(`Delete for (${i}) clicked`)
 }: IWorkTapesTable){
 return <Table>
-    <thead>
+    <thead className="first__td-80">
         <tr>
             <th>#</th>
             <th>Название работы</th>
@@ -27,10 +27,10 @@ return <Table>
         :( items.length ? <td colSpan={2} style={{margin:0, padding:0}} >
             <div className="scrollable my-scroll">
                 <Table bordered striped hover className="mb-0">
-                    <tbody>{items.map((item, index)=>
+                    <tbody className="first__td-80">{items.map((item, index)=>
                         <tr key={`ttr${index+1}`}>
                             <td className="align-middle">{index+1}</td>
-                            <td className="p-0">
+                            <td className="has__card">
                                 <Card className="bg-transparent rounded-0 border-0">
                                     <Card.Body>
                                         <Card.Title >{item.workName}</Card.Title>

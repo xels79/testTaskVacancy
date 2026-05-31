@@ -5,6 +5,7 @@ import WorkTapesTable from "./WorkTapesTable";
 import correctUrl from "../../helplers/correctUrl";
 import IWorkTypes from "../../interfaces/IWorkTypes";
 import WarningDialog from "../WarningDialog/WarningDialog";
+import './WorkTypesPanel.scss';
 
 function WorkTypesPanel(){
     const [showAdd, setShowAdd] = useState(false);
@@ -68,7 +69,7 @@ function WorkTypesPanel(){
                     </Col>
                 </Row>
                 <Row>
-                    <Col className="mt-3">
+                    <Col className="mt-3 work__types-list">
                         <WorkTapesTable
                             items={items}
                             pending={pending}

@@ -1,0 +1,14 @@
+.work__types-list{
+    .table .table{
+        >tbody >tr{
+            >td{
+                >.card{
+                    width: 100%;
+                }
+            }
+            .has__card{
+                width: 800px;
+            }
+        }
+    }
+}

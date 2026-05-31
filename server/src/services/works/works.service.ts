@@ -11,6 +11,11 @@ export class WorksService {
     @InjectModel(Works)
     private worksModel: typeof Works,
   ) {}
+
+  async total(): Promise<number> {
+    return this.worksModel.count();
+  }
+
   async findAll(
     page: number = 1,
     pageSize: number = 10,
@@ -18,9 +23,10 @@ export class WorksService {
     workTypesID: number | undefined,
   ): Promise<Works[]> {
     Logger.log(`Страница ${page}, размер стр. ${pageSize}`);
-    const filters: FindOptions<Works> = { include: ['workType'] };
+    const filters: FindOptions<Works> = { };
+    filters.include = ['workType'];
     if (pageSize) {
-      const _page = page - 1;
+      const _page = page;
       filters.offset = _page * pageSize;
       filters.limit = pageSize;
     }
@@ -36,7 +42,7 @@ export class WorksService {
       }
     }
     console.log(filters);
-    return this.worksModel.findAll({ include: ['workType'] });
+    return this.worksModel.findAll(filters);
   }
   async create(data: CreateWorksDTO): Promise<IWorks> {
     return new Promise<IWorks>(async (resolve, reject) => {
