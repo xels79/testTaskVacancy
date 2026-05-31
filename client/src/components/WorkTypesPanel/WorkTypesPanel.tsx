@@ -95,7 +95,7 @@ function WorkTypesPanel(){
                     console.log('set list', actualList);
                 }
             })
-            .catch(error=>console.error('Fetching error'));
+            .catch(_error=>console.error('Fetching error'));
     }, [pagerData.page, pagerData.pageSize, pagerData.pageCount, updateFlag]);
 
     return (<><Card style={{minHeight:'900px'}}>

@@ -1,5 +1,4 @@
 import { createContext } from "react";
-import { IPager } from "../interfaces/IFilters";
 
 export interface IPagerContext{
     setPage: ( p: number ) => void,

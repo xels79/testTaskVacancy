@@ -1,8 +1,6 @@
 import { Button, Card, Spinner, Table } from "react-bootstrap";
 import IWorkTypes from "../../interfaces/IWorkTypes";
 import { TrashFill, PenFill } from 'react-bootstrap-icons';
-import { useContext } from "react";
-import PagerContext from "../../contexts/PagerContext";
 import { IPager } from "../../interfaces/IFilters";
 import PginationBar from "../PginationBar/PginationBar";
 

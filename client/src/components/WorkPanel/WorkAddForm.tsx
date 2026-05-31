@@ -1,5 +1,5 @@
 import { Button, Card, Col, Form, InputGroup, Spinner } from "react-bootstrap";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import IWorks from "../../interfaces/IWorks";
 
 import { 
@@ -37,7 +37,7 @@ function WorkAddForm( { pageCount }: IWorkAddForm ){
         register,
         handleSubmit,
         setValues,
-        formState: { errors, isValid },
+        formState: { errors },
     } = formMethods;
     const onSubmit: SubmitHandler<IWorks> = (data) => {
         const toSend = { ...data, ...{ dateOfCompletion: new Date( data.dateOfCompletion ).getTime() }}

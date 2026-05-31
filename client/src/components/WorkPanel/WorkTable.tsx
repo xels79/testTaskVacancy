@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { Card, Spinner, Table } from "react-bootstrap";
 import IWorks from "../../interfaces/IWorks";
-import correctUrl, { correctUrlFiltersQuery } from "../../helplers/correctUrl";
+import { correctUrlFiltersQuery } from "../../helplers/correctUrl";
 import WorkTableList from "./WorkTableList";
 import IFilters, { IFilterBase, IPager } from "../../interfaces/IFilters";
 import PagerContext from "../../contexts/PagerContext";
@@ -41,7 +41,7 @@ function WorkTable( { page, pageCount, pageSize, updaateFlag, filters, updateFla
                     console.log('set list', actualList);
                 }
             })
-            .catch(error=>console.error('Fetching error'));
+            .catch(_error=>console.error('Fetching error'));
     }, [ page, pageSize, pageCount, updaateFlag, filters, updateFlag ]);
     return <Card border="success" className="mt-2">
         <Card.Body>

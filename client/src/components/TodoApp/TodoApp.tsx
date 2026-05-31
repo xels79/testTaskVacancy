@@ -4,7 +4,6 @@ import WorkTypesPanel from "../WorkTypesPanel/WorkTypesPanel";
 import WorkPanel from "../WorkPanel/WorkPanel";
 import WarningDialog, { IWarningDialog } from "../WarningDialog/WarningDialog";
 import { DialogContext } from "../../contexts/DialogContext";
-import { v4 as uuidv4 } from "uuid";
 
 function TodoApp(){
     const [key, setKey] = useState('ToDoList');

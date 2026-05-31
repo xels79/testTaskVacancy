@@ -7,5 +7,5 @@ export interface IWorkFiltersContext{
 }
 
 export const WorkFiltersContext = createContext<IWorkFiltersContext>({
-    setFilters: ( filters: IFilterBase ) => {}
+    setFilters: ( _filters: IFilterBase ) => {}
 });

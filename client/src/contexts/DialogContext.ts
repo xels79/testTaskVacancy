@@ -7,7 +7,7 @@ interface IDialogContext{
 }
 
 export const DialogContext = createContext<IDialogContext>({
-    showDialog: function (params: IWarningDialog): void {
+    showDialog: function (_params: IWarningDialog): void {
         throw new Error("Function not implemented.");
     },
     hideDialog: function (): void {
