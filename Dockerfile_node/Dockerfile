@@ -7,4 +7,7 @@ FROM node:24-alpine
 # RUN dpkg -i glibc-source_2.42-11_all.deb
 # RUN apt-get update
 # RUN export LD_LIBRARY_PATH=/usr/local/glibc-2.42/lib:$LD_LIBRARY_PATH
+RUN git -version
+COPY ../client/ /home/node/app/
+RUN CD /home/node/app
 RUN npm install -g npm@11.16.0
