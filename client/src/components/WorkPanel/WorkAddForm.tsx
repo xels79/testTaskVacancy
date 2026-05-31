@@ -14,7 +14,6 @@ import { useContext, useEffect, useState } from "react";
 import IWorkTypes from "../../interfaces/IWorkTypes";
 import ISelecOptions from "../../interfaces/ISelecOptions";
 import correctUrl from "../../helplers/correctUrl";
-import WorkPanelContext from "./WorkPanelContext";
 import PagerContext from "../../contexts/PagerContext";
 
 interface IWorkAddForm{
@@ -61,7 +60,7 @@ function WorkAddForm( { pageCount }: IWorkAddForm ){
 
     }
     useEffect(()=>{
-        const url = correctUrl(`/rest/work-types`);
+        const url = correctUrl(`/rest/work-types?page-size=-1`);
         fetch(url, {method: 'get'})
             .then(async (response)=>(await response.json()) as IWorkTypes[])
             .then(data=>setWorkList(data.map(it=>({
@@ -72,7 +71,6 @@ function WorkAddForm( { pageCount }: IWorkAddForm ){
     return (<Card  border="info">
         <Card.Header>Добавить</Card.Header>
         <Card.Body>
-            <FormProvider {...formMethods}>
             <Form onSubmit={handleSubmit(onSubmit)}>
                 <fieldset className="row align-items-center" disabled={pending}>
                     <Col className="col-6">
@@ -196,7 +194,6 @@ function WorkAddForm( { pageCount }: IWorkAddForm ){
                     </Col>
             </fieldset>
             </Form>
-            </FormProvider>
         </Card.Body>
     </Card>)
 }

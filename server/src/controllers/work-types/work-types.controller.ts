@@ -29,9 +29,8 @@ export class WorkTypesController {
   findAll(
     @Query('page') page?: number,
     @Query('page-size') pageSize?: number,
-    @Query('name-like') nameLike?: string,
   ): Promise<IWorkTypes[]> {
-    return this.workTypesService.findAll(page, pageSize, nameLike);
+    return this.workTypesService.findAll(page, pageSize);
   }
   @Post()
   async create(@Body() workTypeDTO: CreateWorkTypesDto) {

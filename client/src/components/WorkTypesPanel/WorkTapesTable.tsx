@@ -1,8 +1,12 @@
 import { Button, Card, Spinner, Table } from "react-bootstrap";
 import IWorkTypes from "../../interfaces/IWorkTypes";
 import { TrashFill, PenFill } from 'react-bootstrap-icons';
+import { useContext } from "react";
+import PagerContext from "../../contexts/PagerContext";
+import { IPager } from "../../interfaces/IFilters";
+import PginationBar from "../PginationBar/PginationBar";
 
-interface IWorkTapesTable{
+interface IWorkTapesTable extends IPager{
     items:IWorkTypes[],
     pending: boolean,
     deleteClick?: (index: number)=>void,
@@ -12,6 +16,9 @@ interface IWorkTapesTable{
 function WorkTapesTable({ 
     items,
     pending,
+    page,
+    pageCount,
+    pageSize,
     updateClick = (i)=>console.log(`Update for (${i}) clicked`),
     deleteClick = (i)=>console.log(`Delete for (${i}) clicked`)
 }: IWorkTapesTable){
@@ -29,7 +36,7 @@ return <Table>
                 <Table bordered striped hover className="mb-0">
                     <tbody className="first__td-80">{items.map((item, index)=>
                         <tr key={`ttr${index+1}`}>
-                            <td className="align-middle">{index+1}</td>
+                            <td className="align-middle">{page*pageSize + index+1}</td>
                             <td className="has__card">
                                 <Card className="bg-transparent rounded-0 border-0">
                                     <Card.Body>
@@ -43,22 +50,31 @@ return <Table>
                                     variant="outline-primary" 
                                     size="sm" 
                                     onClick={()=>updateClick(item.id?item.id:0)}
+                                    title="Изменить"
                                 ><PenFill/></Button>
                                 <Button
                                     variant="outline-danger"
                                     size="sm"
                                     className="ms-1"
                                     onClick={()=>deleteClick(item.id?item.id:0)}
+                                    title="Удалить"
                                 ><TrashFill/></Button>
                             </td>
                         </tr>)}
                     </tbody>
+                    <tfoot><tr><td colSpan={3}></td></tr></tfoot>
                 </Table>
             </div>
         </td>
         :<td colSpan={2} className="text-center">Пусто</td>)}
     </tr></tbody>
-    <tfoot></tfoot>
+    <tfoot><tr><td colSpan={2}>
+        <PginationBar
+            page={page}
+            pageCount={pageCount}
+            pageSize={pageSize}
+        />
+    </td></tr></tfoot>
 </Table>
 }
 

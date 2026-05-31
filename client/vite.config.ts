@@ -22,7 +22,7 @@ export default defineConfig({
         scss: {
           silenceDeprecations: [
             'import',
-            'mixed-decls',
+            // 'mixed-decls',
             'color-functions',
             'global-builtin',
           ],

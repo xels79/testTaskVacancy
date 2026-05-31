@@ -3,5 +3,8 @@ export interface IPager{
     pageSize: number,
     pageCount: number
 }
-
-export default interface IFilters extends Omit<IPager, "pageCount">{}
+export interface IFilterBase{
+    dateCompleteon?: number,
+    entriesBefore?: boolean
+}
+export default interface IFilters extends Omit<IPager, "pageCount">, IFilterBase{}

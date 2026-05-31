@@ -23,22 +23,14 @@ export class WorkTypesService {
 
   async findAll(
     page: number = 1,
-    pageSize: number = 10,
-    nameLike: string | undefined,
+    pageSize: number = 10
   ): Promise<IWorkTypes[]> {
     Logger.log(`Страница ${page}, размер стр. ${pageSize}`);
-    const filters: FindOptions<WorkTypes> = { where: {} };
-    if (pageSize) {
-      const _page = page - 1;
+    const filters: FindOptions<Works> = { };
+    if (+pageSize>0) {
+      const _page = page;
       filters.offset = _page * pageSize;
       filters.limit = pageSize;
-    }
-    if (typeof nameLike === 'string') {
-      filters.where = {
-        workName: {
-          [Op.like]: `%${nameLike.replace(/["']/g, '')}%`,
-        },
-      };
     }
     console.log(filters);
     return this.workTypesModel.findAll(filters);
@@ -77,7 +69,7 @@ export class WorkTypesService {
       } else {
         rejecrt(
           new HttpException(
-            `Невозможно удалить. Найдено ${dependence} запись(и)(ей)`,
+            `Невозможно удалить. Найдены зависимые записи ${dependence} шт.`,
             HttpStatus.FORBIDDEN,
           ),
         );

@@ -4,7 +4,7 @@ import Works from '../../models/Works';
 import IWorks from '../../interfacec/IWorks';
 import { CreateWorksDTO } from '../../dto/works-dto/create-works-dto';
 import IServerMessage from '../../interfacec/IServerMessage';
-import { FindOptions } from 'sequelize';
+import { FindOptions, Op } from 'sequelize';
 @Injectable()
 export class WorksService {
   constructor(
@@ -12,15 +12,24 @@ export class WorksService {
     private worksModel: typeof Works,
   ) {}
 
-  async total(): Promise<number> {
-    return this.worksModel.count();
+  async total(
+    dateComeletion?: string,
+    entriesBefore?: string
+  ): Promise<number> {
+    const filters: FindOptions<Works> = { };
+    if (typeof dateComeletion !== 'undefined' && +dateComeletion) {
+      Logger.log(`Фильтр по дате ${new Date(+dateComeletion).toLocaleDateString()}`);
+      filters.where = { dateOfCompletion: +dateComeletion };
+    }
+    return this.worksModel.count(filters);
   }
 
   async findAll(
-    page: number = 1,
+    page: number = 0,
     pageSize: number = 10,
-    state: number | undefined,
-    workTypesID: number | undefined,
+    dateComeletion: string | undefined,
+    workTypesID: string | undefined,
+    entriesBefore: string | undefined
   ): Promise<Works[]> {
     Logger.log(`Страница ${page}, размер стр. ${pageSize}`);
     const filters: FindOptions<Works> = { };
@@ -30,9 +39,16 @@ export class WorksService {
       filters.offset = _page * pageSize;
       filters.limit = pageSize;
     }
-    if (typeof state !== 'undefined') {
-      Logger.log(`Состояние ${state}`);
-      filters.where = { state: +state };
+    if (typeof dateComeletion !== 'undefined' && +dateComeletion) {
+      if (entriesBefore === 'true' || entriesBefore === 'on'){
+        Logger.log(`Фильтр по дате готовы до ${new Date(+dateComeletion).toLocaleDateString()}`);
+        filters.where = { dateOfCompletion: {
+          [Op.lte]: +dateComeletion
+        } };
+      }else{
+        Logger.log(`Фильтр по дате ${new Date(+dateComeletion).toLocaleDateString()}`);
+        filters.where = { dateOfCompletion: +dateComeletion };
+      }
     }
     if (typeof workTypesID !== 'undefined') {
       if (filters.where) {

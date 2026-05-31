@@ -1,25 +1,30 @@
 import { Modal, Button } from "react-bootstrap";
 
-interface IWarningDialog{
-    doActionCancel: ()=>void,
-    doActionConfirm: ()=>void
-    title:string,
-    message:string
+export interface IWarningDialog{
+    doActionCancel?: (()=>void) | false,
+    doActionConfirm?: (()=>void) | false,
+    title?:string,
+    message?:string,
+    cacelText?: string,
+    confirmText?: string
 }
 
-function WarningDialog({message, title, doActionCancel, doActionConfirm}:IWarningDialog){
-    return <Modal show onHide={doActionCancel}>
+function WarningDialog({
+  message,
+  title = "Внимание",
+  doActionCancel, 
+  doActionConfirm,
+  cacelText = 'Отменить',
+  confirmText = 'Продолжить'
+}:IWarningDialog){
+    return <Modal show onHide={doActionCancel!==false?doActionCancel:()=>console.log("cancel press")}>
         <Modal.Header closeButton>
           <Modal.Title className="text-danger">{title}</Modal.Title>
         </Modal.Header>
         <Modal.Body>{message}</Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={doActionCancel}>
-            Отменить
-          </Button>
-          <Button variant="danger" onClick={doActionConfirm}>
-            Продолжить
-          </Button>
+          { doActionCancel!==false &&<Button variant="secondary" onClick={doActionCancel}>{cacelText}</Button>}
+          { doActionConfirm!==false &&<Button variant="danger" onClick={doActionConfirm}>{confirmText}</Button>}
         </Modal.Footer>
       </Modal>
 }

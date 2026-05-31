@@ -5,6 +5,7 @@ export interface IPagerContext{
     setPage: ( p: number ) => void,
     setPageSize: ( p: number ) => void,
     setPageCount: ( p: number ) => void,
+    // setF
 }
 
 const PagerContext = createContext<IPagerContext>({

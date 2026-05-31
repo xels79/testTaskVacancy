@@ -1,14 +1,16 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { Button, Col, Form, Modal, Row, Spinner } from "react-bootstrap";
 import IWorkTypes from "../../interfaces/IWorkTypes";
 import { useForm, SubmitHandler } from "react-hook-form";
 import correctUrl from "../../helplers/correctUrl";
+import { DialogContext } from "../../contexts/DialogContext";
 
 interface IWorkTypeAdd{
     doClose:()=>void,
     index: number
 }
 function WorkTypesAdd({ doClose, index }:IWorkTypeAdd){
+  const { showDialog, hideDialog } = useContext( DialogContext );
   const [toEdit, setToEdit] = useState<IWorkTypes|null>(null);
   const [pending, setPending] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
@@ -38,6 +40,16 @@ function WorkTypesAdd({ doClose, index }:IWorkTypeAdd){
                 }
             }else{
                 doClose();
+                showDialog({
+                    title:'Информация',
+                    message:index?"Запись обновлена!":"Запись добавлена",
+                    doActionCancel() {
+                        hideDialog();
+                    },
+                    doActionConfirm:false,
+                    cacelText:'Закрыть'
+                });
+
             }
         })
         .catch(console.error)

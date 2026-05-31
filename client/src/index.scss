@@ -23,6 +23,13 @@ body{
 .table{
   table-layout: fixed;
   width: 100%;
+  tbody{
+    .active{
+      >td{
+        background-color:#7dd3fc;
+      }
+    }
+  }
   .td__card{
     // padding: 0;
   
@@ -47,7 +54,7 @@ body{
     }
 }
 .scrollable{
-  max-height: 500px;
+  max-height: 620px;
   overflow-y: auto;
 
   scrollbar-width: thin;
@@ -93,4 +100,12 @@ body{
   }
 
 }
+
+.alert__message{
+    position: absolute;
+    left: 40px;
+    max-width: 500px;
+    width: 500px;
+}
+
 @import 'bootstrap/dist/css/bootstrap.min.css';
