@@ -6,7 +6,11 @@ import babel from '@rolldown/plugin-babel'
 export default defineConfig({ 
   // base:'http://localhost:8080',
   // root: resolve(__dirname, 'src'),
+  base: "/",
   server: {
+    host: true,
+    port: 5173,
+    strictPort: true,
     proxy: {
       "/rest": {
         target: "http://localhost:3000",
