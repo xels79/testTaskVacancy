@@ -12,21 +12,11 @@ NestJs - Удобен, в не большом приложение. Да и зн
 ### Запуск
 
 ```
-cd ./server
-npm install
-npm run start
+docker compose build
+docker compose up
 ```
-Новое окно терминала:
+Ну, и: [http://localhost:8888](http://localhost:8888/)
 
-```
-cd ./client
-npm install
-npm run dev
-```
-
-Ну, и, по девелоп порту: [http://localhost:5173](http://localhost:5173/)
-
-Docker - не успел. Прошу проститью
 
 
 
