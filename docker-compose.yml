@@ -10,6 +10,7 @@ services:
     post_start:
       - command: /bin/bash /server-start.sh
         user: root
+        privileged: true
       # - command: /etc/init.d/nginx start
       #   user: root
       # - command: chown appuser:appgroup /home/appuser/app/server/data/database.sqlite

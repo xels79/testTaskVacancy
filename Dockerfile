@@ -8,7 +8,7 @@ RUN apt install -y curl adduser nginx
 # RUN apt install -y nodejs npm
 
 #mc
-RUN apt install -y mc
+# RUN apt install -y mc
 
 
 RUN groupadd appgroup --system
@@ -39,7 +39,7 @@ RUN chown appuser:appgroup /home/appuser/app/server -R
 
 USER appuser:appgroup
 WORKDIR /home/appuser/app/server
-RUN rm -r dist
+# RUN rm -r dist
 RUN npm i
 RUN npm install -g @nestjs/cli
 RUN npm run build
