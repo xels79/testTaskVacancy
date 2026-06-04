@@ -19,9 +19,10 @@ function WorkTypesAdd({ doClose, index }:IWorkTypeAdd){
     register,
     handleSubmit,
     setError,
+    // reset,
     setValues,
     formState: { errors, isValid },
-  } = useForm<IWorkTypes>({ values: {workName: '', description: ''} });
+  } = useForm<IWorkTypes>({ defaultValues: toEdit?toEdit:{workName: '', description: ''} });
   const onSubmit: SubmitHandler<IWorkTypes> = (data) => {
     const url = index?correctUrl(`/rest/work-types/${index}`):correctUrl('/rest/work-types');
     setPending(true);
@@ -55,6 +56,9 @@ function WorkTypesAdd({ doClose, index }:IWorkTypeAdd){
         .catch(console.error)
         .finally( () => setPending(false) );
   };
+  useEffect(() => {
+        setValues( toEdit?toEdit:{workName: '', description: ''}, { shouldValidate:true } );
+  }, [ toEdit ]);
   useEffect(()=>{
     const url = correctUrl(`/rest/work-types/${index}`);
     if (index){
@@ -71,7 +75,7 @@ function WorkTypesAdd({ doClose, index }:IWorkTypeAdd){
                     console.error(answer);
                 }
             }else{
-                setValues( answer, { shouldValidate:true } );
+                console.log(`Get index(${index})`,answer);
                 setToEdit( answer );
             }
         })
@@ -82,7 +86,7 @@ function WorkTypesAdd({ doClose, index }:IWorkTypeAdd){
         .finally(()=>setPending(false));
     }
   }, [index])
-  return (
+return (
 <Modal show={true} onHide={doClose} size="lg" centered>
     <Modal.Header closeButton>
         <Modal.Title>{index?`Изменить вид работы`:"Добавить вид работы"}</Modal.Title>

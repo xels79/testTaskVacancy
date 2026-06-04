@@ -1,0 +1,16 @@
+services:
+  debinareact:
+    build: .
+    ports:
+      - "8888:80"
+    container_name: debian-react-nestjs
+    user: 'appuser'
+    volumes:
+      - ./server/data/database.sqlite:/home/appuser/app/server/data/database.sqlite
+    post_start:
+      - command: /bin/bash /server-start.sh
+        user: root
+      # - command: /etc/init.d/nginx start
+      #   user: root
+      # - command: chown appuser:appgroup /home/appuser/app/server/data/database.sqlite
+      #   user: root
